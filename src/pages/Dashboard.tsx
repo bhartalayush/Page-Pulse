@@ -686,7 +686,7 @@ export default function Dashboard() {
                       
                       <div className="bg-secondary border border-border rounded-2xl shadow-sm overflow-hidden transition-colors">
                         <div className="flex items-center p-4 border-b border-border bg-tertiary">
-                          <button onClick={() => setSelectedPromptsForEval(activeFolder.prompts.map(p => p.id))} className="text-txt-muted hover:text-accent mr-4 transition-colors">
+                          <button onClick={() => setSelectedPromptsForEval(activeFolder?.prompts.map(p => p.id) || [])} className="text-txt-muted hover:text-accent mr-4 transition-colors">
                             <CheckSquare className="w-5 h-5" />
                           </button>
                           <div className="flex-1 font-bold text-xs tracking-widest uppercase text-txt-muted">PROMPT</div>
@@ -695,7 +695,7 @@ export default function Dashboard() {
                           <div className="w-24 font-bold text-xs tracking-widest uppercase text-txt-muted text-center">TONE</div>
                         </div>
 
-                        {activeFolder.prompts.map(prompt => {
+                        {(activeFolder?.prompts || []).map(prompt => {
                           const isSelected = selectedPromptsForEval.includes(prompt.id);
                           const results = evalResults?.[prompt.id];
 

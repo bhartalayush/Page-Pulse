@@ -14,7 +14,7 @@ const slideVariants = {
     y: 0, 
     scale: 1, 
     rotateX: 0, 
-    transition: { duration: 1.2, type: "spring", bounce: 0.3 } 
+    transition: { duration: 1.2, type: "spring" as const, bounce: 0.3 } 
   },
   exit: { 
     opacity: 0, 
@@ -75,7 +75,7 @@ const Landing: React.FC = () => {
       y: 0, 
       rotateX: 0, 
       opacity: 1, 
-      transition: { type: "spring", bounce: 0.3, duration: 1.5 } 
+      transition: { type: "spring" as const, bounce: 0.3, duration: 1.5 } 
     }
   };
 
