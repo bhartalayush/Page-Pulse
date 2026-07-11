@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+:root {
+  --theme-bg-primary: #F4EFEA;
+  --theme-bg-secondary: #EAE4D9;
+  --theme-bg-tertiary: #E0D8CA;
+  --theme-text-primary: #1A1A1A;
+  --theme-text-secondary: #4A4A4A;
+  --theme-accent: #944C33;
+  --theme-accent-hover: #7A3C26;
+  --theme-border: #E0D8CA;
+}
+
+.dark {
+  --theme-bg-primary: #0A0F1C;
+  --theme-bg-secondary: #111827;
+  --theme-bg-tertiary: #1E293B;
+  --theme-text-primary: #F8FAFC;
+  --theme-text-secondary: #94A3B8;
+  --theme-accent: #3B82F6;
+  --theme-accent-hover: #2563EB;
+  --theme-border: #1E293B;
+}
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-devanagari: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-primary: var(--theme-bg-primary);
+  --color-secondary: var(--theme-bg-secondary);
+  --color-tertiary: var(--theme-bg-tertiary);
+  --color-txt: var(--theme-text-primary);
+  --color-txt-muted: var(--theme-text-secondary);
+  --color-accent: var(--theme-accent);
+  --color-accent-hover: var(--theme-accent-hover);
+  --color-border: var(--theme-border);
+
+  --animate-shimmer: shimmer 1.5s infinite;
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(200%);
+    }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-primary text-txt font-sans;
+    background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+    background-attachment: fixed;
+    transition: color 0.1s; /* smooth text color switch just in case */
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-devanagari tracking-tight;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-8 py-3 bg-accent text-white rounded-full font-medium transition-all hover:scale-105 active:scale-95 shadow-lg;
+  }
+}
+
+/* View Transition API classes for the circular reveal effect */
+::view-transition-group(root) {
+  animation-timing-function: var(--expo-out);
+}
+
+::view-transition-new(root),
+::view-transition-old(root) {
+  animation: none;
+  mix-blend-mode: normal;
+  display: block;
+}
+
+/* For Light -> Dark: old stays behind, new draws on top */
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+/* For Dark -> Light: reverse layering so it looks like it peels off or spreads properly */
+.dark::view-transition-old(root) {
+  z-index: 9999;
+}
+.dark::view-transition-new(root) {
+  z-index: 1;
+}
