@@ -5,6 +5,7 @@ import url from 'url'
 import handler from './api/audit'
 
 export default defineConfig({
+  base: './',
   plugins: [
     react(),
     tailwindcss(),
