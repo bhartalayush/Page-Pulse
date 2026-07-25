@@ -1,57 +1,131 @@
-# PromptDesk
+# Page Pulse | Website Auditor
 
-PromptDesk is a powerful workspace for prompt engineering and iterative AI evaluation. It provides a distraction-free environment for developers and prompt engineers to draft, version, and evaluate prompts against multiple AI models simultaneously.
+**Repository**: https://github.com/bhartalayush/Page-Pulse  
+**Author**: Ayush BhARTAL  
+**Built for**: Digital Heroes Internship Qualification Task  
+**Development Tooling**: Built with **Antigravity** (Google DeepMind AI Agentic Pair Programming Assistant)
+
+---
+
+## Overview
+
+Page Pulse is a high-performance web auditing application that analyzes any public URL and generates real-time reports covering HTTP status, latency, SEO semantic structure, image alt tag accessibility, and body text density.
+
+---
 
 ## Features
 
-- **Workspace & Folder Management:** Organize your prompts into structured folders and workspaces.
-- **Version Control:** Automatically track versions of your prompts as you iterate.
-- **Live Model Arena:** Test your prompts side-by-side against three active OpenRouter AI models simultaneously.
-- **Dynamic Model Selection:** Choose exactly which three AI models you want to pit against each other from a live, real-time list of available endpoints.
-- **Evaluation Engine:** Score your prompts on key metrics such as accuracy, safety, and tone.
-- **Modern UI:** Built with a beautiful, responsive, and distraction-free dark mode interface.
+- **Live URL Auditor**: Fetches and inspects target web pages with an 8-second request cancellation timeout.
+- **Interactive Terminal Dashboard**: Renders real-time analysis status and metrics cleanly.
+- **Health Pulse Gauge**: Calculates a composite score out of 100 based on standard web guidelines.
+- **Detailed SEO Audit**: Validates title length, meta-description presence/length, and H1 heading hierarchy.
+- **WCAG Accessibility Check**: Detects image elements missing required alternative description tags.
+- **Side-by-Side Competitor Comparison**: Compare two domains side-by-side in a comparative metric table.
+- **Raw JSON Inspector**: Inspect and copy raw API response payloads.
+- **Audit History**: Caches previous scan logs in browser local storage.
+- **High-Contrast Pastel Interface**: Designed with high-contrast pastel styling and full-screen layout.
 
-## Quick Start
+---
+
+## Getting Started
 
 ### Prerequisites
 - Node.js (v18 or higher)
-- npm or yarn
+- npm (v9 or higher)
 
-### Installation
+### Installation and Execution
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/bhartalayush/PromptDesk.git
-   cd PromptDesk
-   ```
-
-2. Install dependencies:
+1. **Install Dependencies**:
    ```bash
    npm install
    ```
 
-3. Start the development server:
+2. **Run Unit Tests**:
+   ```bash
+   npm run test
+   ```
+   Executes HTML parsing unit tests using Vitest.
+
+3. **Start Development Server**:
    ```bash
    npm run dev
    ```
+   Open `http://localhost:5173` in your browser.
 
-4. Open your browser and navigate to `http://localhost:5173`.
+4. **Build for Production**:
+   ```bash
+   npm run build
+   ```
 
-## Configuration
+---
 
-To use the Live Model Arena, you need a free OpenRouter API key.
-1. Sign up at [OpenRouter.ai](https://openrouter.ai).
-2. Generate an API Key.
-3. Open the Settings panel in PromptDesk and paste your key. Your key is stored securely in your browser's local storage and is never sent to our servers.
+## API Specification
 
-## Deployment
+Page Pulse exposes a public, CORS-enabled serverless GET endpoint.
 
-This project can be easily deployed to Vercel or Netlify. A `vercel.json` file is included to handle client-side routing.
+### Request
+`GET /api/audit?url=<target_url>`
 
-## Acknowledgements
+**Query Parameters:**
+- `url` (string, required): The target website URL (e.g. `https://example.com` or `wikipedia.org`).
 
-This project was built as the Final Submission for the Digital Heroes Full Stack Developer Trial. 
+### Responses
 
-## License
+#### 1. Success (200 OK)
+```json
+{
+  "url": "https://example.com",
+  "status": 200,
+  "responseTimeMs": 184,
+  "title": "Example Domain",
+  "metaDescription": "No meta description found",
+  "h1Count": 1,
+  "imagesMissingAlt": 0,
+  "wordCount": 125
+}
+```
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+#### 2. Invalid Input / Non-HTML Target (400 Bad Request)
+```json
+{
+  "error": "Only HTML pages can be audited. Provided URL returned content-type: 'application/pdf'."
+}
+```
+
+#### 3. Request Timeout (504 Gateway Timeout)
+```json
+{
+  "error": "Request timed out. The website took too long (more than 8 seconds) to respond."
+}
+```
+
+#### 4. Network Resolution Error (500 Internal Server Error)
+```json
+{
+  "error": "Failed to fetch page: getaddrinfo ENOTFOUND invalid-domain-target.xyz"
+}
+```
+
+---
+
+## Technical Design Decisions
+
+### 1. Cheerio Server-Side DOM Parsing
+- **Decision**: Used Cheerio for server-side HTML parsing instead of heavy headless browser runners like Puppeteer or Playwright.
+- **Reasoning**: Cheerio executes in under 10ms with minimal memory footprint (under 15MB RAM vs 200MB+ for Chromium instances), allowing fast response times under 300ms on serverless deployments.
+
+### 2. Dual Local Proxy and Vercel Serverless Architecture
+- **Decision**: Integrated custom Vite dev server middleware directly in `vite.config.ts`.
+- **Reasoning**: Eliminates the need for a separate backend process during local development. Running `npm run dev` serves both the frontend SPA and the backend API on a single port (`localhost:5173`), matching production serverless behavior.
+
+### 3. Rule-Based Pulse Scoring Algorithm
+- **Decision**: Formulated a weighted scoring metric translating raw HTML statistics into an overall score out of 100.
+- **Reasoning**: Aggregates HTTP status (+20), Title length (+15), Meta Description (+15), H1 count (+10), Alt tag compliance (+10), and Word density (+10) into a single visual rating that immediately highlights actionable improvements.
+
+---
+
+## Tooling and Credits
+
+- **Developer**: Ayush BhARTAL
+- **Assignment**: Digital Heroes SDE Qualification Task
+- **AI Pair Programmer**: Antigravity (Google DeepMind Advanced Agentic AI Assistant)

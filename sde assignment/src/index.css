@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+/* ─── Colour Tokens ─────────────────────────── */
+:root {
+  --bg:       #FAF8F5;
+  --bg2:      #F2EFE9;
+  --bg3:      #EAE6DE;
+  --ink:      #0E1B2C;
+  --ink2:     #3A5070;
+  --ink3:     #7A90A8;
+
+  /* Pastels */
+  --p-blue:   #D6E8F5;
+  --p-peach:  #F5DDD0;
+  --p-gold:   #EDD9A3;
+  --p-sage:   #C7D3C0;
+  --p-lav:    #DCD5EC;
+  --p-rose:   #F0D0D8;
+
+  --gold:     #C8A96B;
+  --navy:     #182E4E;
+  --slate:    #4A607A;
+  --border:   rgba(14,27,44,0.09);
+}
+
+@theme {
+  --font-display: "Josefin Sans", sans-serif;
+  --font-serif:   "Cormorant Garamond", Georgia, serif;
+  --font-mono:    "JetBrains Mono", monospace;
+  --font-sans:    "Josefin Sans", sans-serif;
+
+  /* Tailwind aliases */
+  --color-primary:      var(--bg);
+  --color-secondary:    var(--bg2);
+  --color-tertiary:     var(--bg3);
+  --color-txt:          var(--ink);
+  --color-txt-muted:    var(--ink2);
+  --color-accent:       var(--navy);
+  --color-accent-hover: var(--gold);
+  --color-border:       var(--border);
+  --color-gold:         var(--gold);
+
+  /* ── Keyframes ─────────────────────────────── */
+  @keyframes shimmer { 100% { transform: translateX(200%); } }
+
+  @keyframes floatA {
+    0%,100% { transform: translate(0px, 0px)    rotate(0deg);   }
+    33%     { transform: translate(18px,-22px)  rotate(6deg);   }
+    66%     { transform: translate(-14px, 16px) rotate(-4deg);  }
+  }
+  @keyframes floatB {
+    0%,100% { transform: translate(0px, 0px)    rotate(0deg);   }
+    40%     { transform: translate(-20px, 24px) rotate(-8deg);  }
+    70%     { transform: translate(16px,-12px)  rotate(5deg);   }
+  }
+  @keyframes floatC {
+    0%,100% { transform: translate(0px, 0px)   scale(1);        }
+    50%     { transform: translate(12px,-18px) scale(1.06);     }
+  }
+  @keyframes floatD {
+    0%,100% { transform: translate(0,0)  rotate(0deg);   }
+    30%     { transform: translate(-10px,20px) rotate(12deg);  }
+    60%     { transform: translate(14px,-8px)  rotate(-6deg);  }
+  }
+  @keyframes spinSlow {
+    from { transform: rotate(0deg);   }
+    to   { transform: rotate(360deg); }
+  }
+  @keyframes spinSlowR {
+    from { transform: rotate(0deg);   }
+    to   { transform: rotate(-360deg);}
+  }
+  @keyframes pulse-soft {
+    0%,100% { opacity: 0.55; transform: scale(1); }
+    50%     { opacity: 0.85; transform: scale(1.04); }
+  }
+  @keyframes drift {
+    0%,100% { transform: translateY(0);    }
+    50%     { transform: translateY(-20px); }
+  }
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(20px); }
+    to   { opacity:1; transform:translateY(0);    }
+  }
+  @keyframes blink {
+    0%,100% { opacity:1; } 50% { opacity:0; }
+  }
+}
+
+/* ─── Base ──────────────────────────────────── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body, #root { height: 100%; margin:0; padding:0; }
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::-webkit-scrollbar { width:4px; height:4px; }
+  ::-webkit-scrollbar-track  { background:var(--bg2); }
+  ::-webkit-scrollbar-thumb  { background:var(--ink3); border-radius:4px; }
+}
+
+/* ─── Utility helpers ─────────────────────── */
+.font-display { font-family:"Josefin Sans",sans-serif; }
+.font-serif   { font-family:"Cormorant Garamond",serif; }
+.font-mono    { font-family:"JetBrains Mono",monospace; }
+
+/* Float animations exposed as classes */
+.anim-floatA { animation: floatA 9s  ease-in-out infinite; }
+.anim-floatB { animation: floatB 11s ease-in-out infinite; }
+.anim-floatC { animation: floatC 7s  ease-in-out infinite; }
+.anim-floatD { animation: floatD 13s ease-in-out infinite; }
+.anim-spin   { animation: spinSlow  22s linear infinite; }
+.anim-spinR  { animation: spinSlowR 28s linear infinite; }
+.anim-pulse  { animation: pulse-soft 5s ease-in-out infinite; }
+.anim-drift  { animation: drift 8s ease-in-out infinite; }
