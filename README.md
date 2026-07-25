@@ -1,7 +1,8 @@
 # Page Pulse | Website Auditor
 
+**Live URL**: https://designhero-six.vercel.app  
 **Repository**: https://github.com/bhartalayush/Page-Pulse  
-**Author**: Ayush Bhrtal  
+**Author**: Ayush Bhartal  
 **Built for**: Digital Heroes Internship Qualification Task  
 **Development Tooling**: Built with **Antigravity** (Google DeepMind AI Agentic Pair Programming Assistant)
 

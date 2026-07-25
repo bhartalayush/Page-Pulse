@@ -1,5 +1,6 @@
 # Page Pulse | SDE Assignment Documentation
 
+**Live URL**: https://designhero-six.vercel.app  
 **GitHub Repository**: https://github.com/bhartalayush/Page-Pulse  
 **Author**: Ayush BhARTAL  
 **Assignment**: Digital Heroes Internship Qualification Task  
