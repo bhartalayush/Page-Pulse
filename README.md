@@ -1,7 +1,7 @@
 # Page Pulse | Website Auditor
 
 **Repository**: https://github.com/bhartalayush/Page-Pulse  
-**Author**: Ayush BhARTAL  
+**Author**: Ayush Bhrtal  
 **Built for**: Digital Heroes Internship Qualification Task  
 **Development Tooling**: Built with **Antigravity** (Google DeepMind AI Agentic Pair Programming Assistant)
 
@@ -126,6 +126,6 @@ Page Pulse exposes a public, CORS-enabled serverless GET endpoint.
 
 ## Tooling and Credits
 
-- **Developer**: Ayush BhARTAL
+- **Developer**: Ayush Bhartal
 - **Assignment**: Digital Heroes SDE Qualification Task
-- **AI Pair Programmer**: Antigravity (Google DeepMind Advanced Agentic AI Assistant)
+- **AI Tool**: Antigravity
